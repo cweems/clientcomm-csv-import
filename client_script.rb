@@ -1,11 +1,12 @@
 require 'csv'
 
-csv_text = 'first_name,last_name,phone_number
-Paras,Sanghavi,222-222-2222
-Rachel,Edelman,098-765-4321'
+csv_text = "last_name,first_name,phone_number
+PASTE_CONTACTS_HERE"
 
+
+puts 'script running'
 # Set this before running
-email = 'charlie@codeforamerica.org'
+email = 'test@example.com'
 user = User.find_by(email: email)
 
 csv = CSV.parse(csv_text, :headers => true)
