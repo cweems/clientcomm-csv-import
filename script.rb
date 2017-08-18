@@ -7,9 +7,9 @@ PASTE_CONTACTS_HERE"
 puts 'script running'
 # Set this before running
 email = 'test@example.com'
-user = User.find_by(email: email)
+user = User.find_by!(email: email)
 
-csv = CSV.parse(csv_text, :headers => true)
+csv = CSV.parse(csv_text, headers: true)
 csv.each do |row|
   entry = row.to_hash
   Client.create!(
