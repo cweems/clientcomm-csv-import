@@ -11,12 +11,14 @@ csv = CSV.parse(csv_text, headers: true)
 csv.each do |row|
   entry = row.to_hash
 
-  unless Client.where(phone_number: PhoneNumberParser.normalize(entry['phone_number']), user: user).present?
-    Client.create!(
-        phone_number: entry['phone_number'],
-        first_name: entry['first_name'],
-        last_name: entry['last_name'],
-        user: user
-    )
+  client = Client.new(
+    phone_number: entry['phone_number'],
+    first_name: entry['first_name'],
+    last_name: entry['last_name'],
+    user: user
+  )
+
+  if !client.save && client.errors.added?(:phone_number, :external_taken)
+    raise StandardError(client.errors.full_messages)
   end
 end
